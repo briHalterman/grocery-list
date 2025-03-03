@@ -8,4 +8,4 @@ const Header = () => (
 );
 
 const root = createRoot(document.getElementById('root'));
-root.render(element);
+root.render(<Header />);
