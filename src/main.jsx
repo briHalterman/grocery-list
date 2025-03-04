@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { StrictMode } from 'react';
+import { StrictMode, useState } from 'react';
 
 const items = [
   {
@@ -39,18 +39,20 @@ const Item = (props) => {
     <div className="item">
       <button className="remove-item" />
       <span className="item-name">{props.name}</span>
-      <Counter quantity={props.quantity} />
+      <Counter />
     </div>
   );
 };
 
 const Counter = (props) => {
+  const [quantity, setQuantity] = useState(0);
+
   return (
     <div className="quantity">
       <span className="gty-label">QTY</span>
       <button className="increment">+</button>
       <button className="decrement">-</button>
-      <span className="quantity-amount">{props.quantity}</span>
+      <span className="quantity-amount">{quantity}</span>
     </div>
   );
 };
@@ -65,11 +67,7 @@ const App = (props) => {
 
       {/* Grocery List */}
       {props.initialList.map((item) => (
-        <Item
-          name={item.name}
-          quantity={item.quantity}
-          key={item.id}
-        />
+        <Item name={item.name} key={item.id} />
       ))}
     </div>
   );
