@@ -1,28 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { StrictMode } from 'react';
-
-const items = [
-  {
-    name: 'Apples',
-    quantity: 5,
-    id: 1,
-  },
-  {
-    name: 'Bananas',
-    quantity: 7,
-    id: 2,
-  },
-  {
-    name: 'Box of Pasta',
-    quantity: 1,
-    id: 3,
-  },
-  {
-    name: 'Cookies',
-    quantity: 12,
-    id: 4,
-  },
-];
+import { StrictMode, useState } from 'react';
 
 const Header = ({ title, itemTotal }) => {
   // console.log(props);
@@ -37,38 +14,79 @@ const Header = ({ title, itemTotal }) => {
 const Item = (props) => {
   return (
     <div className="item">
-      <button className="remove-item" />
+      <button
+        className="remove-item"
+        onClick={() => props.removeItem(props.id)}
+      />
       <span className="item-name">{props.name}</span>
-      <Counter quantity={props.quantity} />
+      <Counter />
     </div>
   );
 };
 
-const Counter = (props) => {
+const Counter = () => {
+  const [quantity, setQuantity] = useState(0);
+
+  const incrementQuantity = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const decrementQuantity = () => {
+    if (quantity > 0) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
+
+
   return (
     <div className="quantity">
       <span className="gty-label">QTY</span>
-      <button className="increment">+</button>
-      <button className="decrement">-</button>
-      <span className="quantity-amount">{props.quantity}</span>
+      <button className="increment" onClick={incrementQuantity}>
+        +
+      </button>
+      <button className="decrement" onClick={decrementQuantity}>
+        -
+      </button>
+      <span className="quantity-amount">{quantity}</span>
     </div>
   );
 };
 
-const App = (props) => {
+const App = () => {
+  const [items, setItems] = useState([
+    {
+      name: 'Apples',
+      id: 1,
+    },
+    {
+      name: 'Bananas',
+      id: 2,
+    },
+    {
+      name: 'Box of Pasta',
+      id: 3,
+    },
+    {
+      name: 'Cookies',
+      id: 4,
+    },
+  ]);
+
+  const handleRemoveItem = (id) => {
+    setItems((prevItems) => prevItems.filter((i) => i.id !== id));
+  };
+  
   return (
     <div className="grocery-list">
-      <Header
-        title="My Grocery List"
-        itemTotal={props.initialList.length}
-      />
+      <Header title="My Grocery List" itemTotal={items.length} />
 
       {/* Grocery List */}
-      {props.initialList.map((item) => (
+      {items.map((item) => (
         <Item
           name={item.name}
-          quantity={item.quantity}
+          id={item.id}
           key={item.id}
+          removeItem={handleRemoveItem}
         />
       ))}
     </div>
@@ -78,6 +96,6 @@ const App = (props) => {
 const root = createRoot(document.getElementById('root'));
 root.render(
   <StrictMode>
-    <App initialList={items} />
+    <App />
   </StrictMode>
 );
