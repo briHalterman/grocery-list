@@ -14,7 +14,10 @@ const Header = ({ title, itemTotal }) => {
 const Item = (props) => {
   return (
     <div className="item">
-      <button className="remove-item" />
+      <button
+        className="remove-item"
+        onClick={() => props.removeItem(props.id)}
+      />
       <span className="item-name">{props.name}</span>
       <Counter />
     </div>
@@ -33,6 +36,7 @@ const Counter = () => {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+
 
   return (
     <div className="quantity">
@@ -68,13 +72,22 @@ const App = () => {
     },
   ]);
 
+  const handleRemoveItem = (id) => {
+    setItems((prevItems) => prevItems.filter((i) => i.id !== id));
+  };
+  
   return (
     <div className="grocery-list">
       <Header title="My Grocery List" itemTotal={items.length} />
 
       {/* Grocery List */}
       {items.map((item) => (
-        <Item name={item.name} key={item.id} />
+        <Item
+          name={item.name}
+          id={item.id}
+          key={item.id}
+          removeItem={handleRemoveItem}
+        />
       ))}
     </div>
   );
