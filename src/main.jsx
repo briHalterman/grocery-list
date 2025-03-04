@@ -44,16 +44,16 @@ const Item = (props) => {
   );
 };
 
-const Counter = (props) => {
+const Counter = () => {
   const [quantity, setQuantity] = useState(0);
 
   const incrementQuantity = () => {
-    setQuantity(quantity + 1);
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
   const decrementQuantity = () => {
     if (quantity > 0) {
-      setQuantity(quantity - 1);
+      setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
 
