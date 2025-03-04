@@ -5,18 +5,22 @@ const items = [
   {
     name: 'Apples',
     quantity: 5,
+    id: 1,
   },
   {
     name: 'Bananas',
     quantity: 7,
+    id: 2,
   },
   {
     name: 'Box of Pasta',
     quantity: 1,
+    id: 3,
   },
   {
     name: 'Cookies',
     quantity: 12,
+    id: 4,
   },
 ];
 
@@ -61,7 +65,11 @@ const App = (props) => {
 
       {/* Grocery List */}
       {props.initialList.map((item) => (
-        <Item name={item.name} quantity={item.quantity} />
+        <Item
+          name={item.name}
+          quantity={item.quantity}
+          key={item.id}
+        />
       ))}
     </div>
   );
