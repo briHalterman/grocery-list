@@ -188,3 +188,16 @@ header h1 {
   background: #fa6363;
   color: white;
 }
+
+.edit-input {
+  font-size: 1em;
+  padding: 5px;
+  border: 2px solid #fa6363;
+  border-radius: 4px;
+  outline: none;
+  flex-grow: 1;
+}
+
+.edit-input:focus {
+  border-color: #ff8585;
+}

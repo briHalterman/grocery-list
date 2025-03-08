@@ -10,14 +10,47 @@ const Header = ({ title, itemTotal }) => {
   );
 };
 
-const Item = (props) => {
+const Item = ({ id, name, removeItem, editItem }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedName, setEditedName] = useState(name);
+
+  const handleSaveEdit = () => {
+    if (!editedName) return;
+    editItem(id, editedName);
+    setIsEditing(false);
+  };
+
   return (
     <div className="item">
       <button
         className="remove-item"
-        onClick={() => props.removeItem(props.id)}
+        onClick={() => props.removeItem(id)}
       />
-      <span className="item-name">{props.name}</span>
+      {isEditing ? (
+        <>
+          <input
+            className="edit-input"
+            type="text"
+            value={editedName}
+            onChange={(event) => setEditedName(event.target.value)}
+            onKeyDown={(event) =>
+              event.key === 'Enter' && handleSaveEdit()
+            }
+            autoFocus
+          />
+        </>
+      ) : (
+        <>
+          <span className="item-name">{name}</span>
+          <button
+            className="edit-item"
+            onClick={() => setIsEditing(true)}
+          >
+            Edit
+          </button>
+        </>
+      )}
+
       <Counter />
     </div>
   );
@@ -61,7 +94,10 @@ const AddItemForm = ({ addItem }) => {
   };
 
   return (
-    <form className="add-item-form" onSubmit={(event) => handleSubmit(event)}>
+    <form
+      className="add-item-form"
+      onSubmit={(event) => handleSubmit(event)}
+    >
       <input
         type="text"
         ref={itemInput}
@@ -106,6 +142,14 @@ const App = () => {
     nextItemId.current += 1;
   };
 
+  const handleEditItem = (id, newName) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, name: newName } : item
+      )
+    );
+  };
+
   const handleRemoveItem = (id) => {
     setItems((prevItems) => prevItems.filter((i) => i.id !== id));
   };
@@ -121,6 +165,7 @@ const App = () => {
           id={item.id}
           key={item.id}
           removeItem={handleRemoveItem}
+          editItem={handleEditItem}
         />
       ))}
       <AddItemForm addItem={handleAddItem} />
