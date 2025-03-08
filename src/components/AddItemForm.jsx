@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import PropTypes from 'prop-types';
 
 const AddItemForm = ({ addItem }) => {
   const itemInput = useRef();
@@ -23,6 +24,10 @@ const AddItemForm = ({ addItem }) => {
       <input type="submit" value="Add item" />
     </form>
   );
+};
+
+AddItemForm.propTypes = {
+  addItem: PropTypes.func.isRequired,
 };
 
 export default AddItemForm;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Counter from './Counter';
+import PropTypes from 'prop-types';
 
 const Item = ({ id, name, removeItem, editItem }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -50,6 +51,13 @@ const Item = ({ id, name, removeItem, editItem }) => {
       <Counter />
     </div>
   );
+};
+
+Item.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  removeItem: PropTypes.func.isRequired,
+  editItem: PropTypes.func.isRequired,
 };
 
 export default Item;

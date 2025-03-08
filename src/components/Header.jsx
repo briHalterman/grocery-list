@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const Header = ({ title, itemTotal }) => {
   return (
     <header>
@@ -5,6 +7,11 @@ const Header = ({ title, itemTotal }) => {
       <span className="total-items">Items: {itemTotal}</span>
     </header>
   );
+};
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+  itemTotal: PropTypes.number.isRequired,
 };
 
 export default Header;
