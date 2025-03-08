@@ -24,7 +24,7 @@ const Item = ({ id, name, removeItem, editItem }) => {
     <div className="item">
       <button
         className="remove-item"
-        onClick={() => props.removeItem(id)}
+        onClick={() => removeItem(id)}
       />
       {isEditing ? (
         <>
@@ -33,11 +33,14 @@ const Item = ({ id, name, removeItem, editItem }) => {
             type="text"
             value={editedName}
             onChange={(event) => setEditedName(event.target.value)}
-            onKeyDown={(event) =>
-              event.key === 'Enter' && handleSaveEdit()
-            }
+            // onKeyDown={(event) =>
+            //   event.key === 'Enter' && handleSaveEdit()
+            // }
             autoFocus
           />
+          <button className="save-item" onClick={handleSaveEdit}>
+            Save
+          </button>
         </>
       ) : (
         <>

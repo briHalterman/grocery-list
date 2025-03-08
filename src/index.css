@@ -201,3 +201,18 @@ header h1 {
 .edit-input:focus {
   border-color: #ff8585;
 }
+
+.save-item {
+  background-color: #83D97C;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.save-item:hover {
+  background-color: #6cc56e;
+}
