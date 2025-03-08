@@ -61,7 +61,7 @@ const AddItemForm = ({ addItem }) => {
   };
 
   return (
-    <form onSubmit={(event) => handleSubmit(event)}>
+    <form className="add-item-form" onSubmit={(event) => handleSubmit(event)}>
       <input
         type="text"
         ref={itemInput}
