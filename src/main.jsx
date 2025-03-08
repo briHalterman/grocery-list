@@ -22,10 +22,12 @@ const Item = ({ id, name, removeItem, editItem }) => {
 
   return (
     <div className="item">
-      <button
-        className="remove-item"
-        onClick={() => removeItem(id)}
-      />
+      {!isEditing && (
+        <button
+          className="remove-item"
+          onClick={() => removeItem(id)}
+        />
+      )}
       {isEditing ? (
         <>
           <input
